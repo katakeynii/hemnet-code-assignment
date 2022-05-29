@@ -7,8 +7,8 @@ RSpec.describe Package, type: :model do
     it { should validate_uniqueness_of :slug}
   end
 
-  # describe "Associations" do 
-  #   it { should have_many :prices}
-  #   it { should have_many(:price_updates).through(:prices)}
-  # end
+  describe "Associations" do 
+    it { should have_many :prices}
+    it { should have_many(:price_updates).through(:prices)}
+  end
 end

@@ -3,7 +3,6 @@ class CreatePackageService < ApplicationService
     end
 
     def call
-
         ActiveRecord::Base.transaction do
 
         end
