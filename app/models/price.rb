@@ -25,6 +25,8 @@
 #  fk_rails_...  (package_id => packages.id)
 #
 class Price < ApplicationRecord
+
+  
   belongs_to :currency
   belongs_to :package
   belongs_to :municipality

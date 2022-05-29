@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: packages
+#
+#  id          :bigint           not null, primary key
+#  description :text
+#  is_active   :boolean
+#  name        :string
+#  slug        :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+# Indexes
+#
+#  index_packages_on_slug  (slug) UNIQUE
+#
 require 'rails_helper'
 
 RSpec.describe Package, type: :model do

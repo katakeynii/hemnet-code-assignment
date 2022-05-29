@@ -15,6 +15,8 @@
 #  index_packages_on_slug  (slug) UNIQUE
 #
 class Package < ApplicationRecord
+    extend FriendlyId
+    friendly_id :name, use: :slugged
     has_many :prices
     has_many :price_updates, through: :prices
 
