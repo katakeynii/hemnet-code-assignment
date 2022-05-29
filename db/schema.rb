@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_29_151802) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_29_155946) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,6 +53,35 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_29_151802) do
     t.index ["slug"], name: "index_packages_on_slug", unique: true
   end
 
+  create_table "price_updates", force: :cascade do |t|
+    t.bigint "price_id", null: false
+    t.decimal "amount_before"
+    t.decimal "amount_after"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["price_id"], name: "index_price_updates_on_price_id"
+  end
+
+  create_table "prices", force: :cascade do |t|
+    t.string "currency_code"
+    t.bigint "currency_id", null: false
+    t.bigint "package_id", null: false
+    t.bigint "municipality_id", null: false
+    t.decimal "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["currency_id", "package_id", "municipality_id"], name: "index_prices_on_currency_id_and_package_id_and_municipality_id", unique: true
+    t.index ["currency_id"], name: "index_prices_on_currency_id"
+    t.index ["municipality_id"], name: "index_prices_on_municipality_id"
+    t.index ["package_id"], name: "index_prices_on_package_id"
+  end
+
   add_foreign_key "accepted_currencies", "currencies"
   add_foreign_key "accepted_currencies", "municipalities"
+  add_foreign_key "price_updates", "prices"
+  add_foreign_key "prices", "currencies"
+  add_foreign_key "prices", "municipalities"
+  add_foreign_key "prices", "packages"
 end

@@ -9,6 +9,6 @@ RSpec.describe Package, type: :model do
 
   # describe "Associations" do 
   #   it { should have_many :prices}
-  #   it { should have_many :price_updates}
+  #   it { should have_many(:price_updates).through(:prices)}
   # end
 end
