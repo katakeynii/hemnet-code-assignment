@@ -25,7 +25,7 @@
 #  fk_rails_...  (package_id => packages.id)
 #
 class Price < ApplicationRecord
-
+  has_paper_trail
   # composed_of :amount, class_name: "Amount", mapping: %w(amount)
   belongs_to :currency
   belongs_to :package

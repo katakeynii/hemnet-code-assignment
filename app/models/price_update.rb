@@ -30,4 +30,7 @@ class PriceUpdate < ApplicationRecord
       numericality: { 
         greater_than_or_equal_to: 0
       }
+
+  scope :by_month, ->(month_number) { where('extract(year  from start_date) = ?', month_number) }
+  scope :by_year, ->(year) { where('extract(year  from start_date) = ?', year) }
 end

@@ -2,6 +2,7 @@ namespace :seed do
 
   desc ""
   task all: :environment do
+    PriceUpdate.delete_all 
     Price.delete_all 
     AcceptedCurrency.delete_all 
     Package.delete_all 
@@ -13,6 +14,36 @@ namespace :seed do
     Rake::Task['seed:currencies'].invoke
     Rake::Task['seed:currencies_in_municipality'].invoke
     Rake::Task['seed:prices'].invoke
+  end
+
+  desc "Creating History "
+  task set_history: :environment do
+    package = Package.friendly.find("basic")
+    stockholm = Municipality.friendly.find("stockholm")
+    prices = Price.where(package: package, municipality: stockholm)
+    history_start = DateTime.new(2019, 01, 01)
+    today = Date.today
+    range = history_start..today
+    weeks = range.to_a.map(&:beginning_of_week).uniq
+    prices.each do |price|
+      amount = rand(10000)
+      data = {
+        price_id: price.id,
+        amount: amount,
+        package: package.id
+      }
+      weeks.each do |week|
+        # UpdatePriceService.call data
+        PriceUpdate.create! do |update|
+          update.price =  price
+          update.amount_before =  price.amount
+          update.amount_after =  amount
+          update.start_date =  week
+          update.end_date =  DateTime.now.utc
+        end
+        price.update_column(:amount, amount)
+      end
+    end
   end
 
   desc "Creating packages "
@@ -98,6 +129,7 @@ namespace :seed do
             prices: [
               {amount: 100, currency: "SEK"},
               {amount: 90, currency: "USD"},
+              {amount: 250, currency: "EUR"},
             ]
           }
         ]
