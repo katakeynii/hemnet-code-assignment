@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :municipality do
-    name { "MyString" }
-    slug { "MyString" }
+    sequence(:name) { |n| "Municipality #{n}" }
+    sequence(:slug) { |n| "municipality-#{n}" }
   end
 end
