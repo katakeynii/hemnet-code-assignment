@@ -8,6 +8,7 @@ class CreatePackageService < ApplicationService
 
     def call
         ActiveRecord::Base.transaction do
+
             municipality = Municipality.friendly.find(@municipality)
             currency = Currency.find_by(code: @currency)
 
@@ -19,6 +20,7 @@ class CreatePackageService < ApplicationService
                 currency_code: currency.code,
                 municipality: municipality,
                 package: package
+            package
         end
     end
 end
