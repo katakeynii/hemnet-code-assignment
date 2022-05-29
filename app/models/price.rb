@@ -26,7 +26,7 @@
 #
 class Price < ApplicationRecord
 
-  
+  # composed_of :amount, class_name: "Amount", mapping: %w(amount)
   belongs_to :currency
   belongs_to :package
   belongs_to :municipality

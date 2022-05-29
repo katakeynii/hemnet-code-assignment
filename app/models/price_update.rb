@@ -21,6 +21,9 @@
 #
 class PriceUpdate < ApplicationRecord
   belongs_to :price
+  # composed_of :period, class_name: "Period", mapping: %w(start_date end_date)
+  # composed_of :amount_before, class_name: "Amount", mapping: %w(amount_before)
+  # composed_of :amount_after, class_name: "Amount", mapping: %w(amount_after)
 
   validates :amount_before, :amount_after, 
       presence: true,

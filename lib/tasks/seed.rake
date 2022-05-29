@@ -131,6 +131,7 @@ namespace :seed do
           Price.create! amount: price[:amount], 
             currency: currency, 
             package: package,
+            currency_code: currency.code,
             municipality: municipality
         end
       end
